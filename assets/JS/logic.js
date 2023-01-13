@@ -30,16 +30,19 @@ function gameStart(){
     isWin = false
     // start timer
     timerStart();
+    // show timer
+    //timerDisplay.style.display = "block";
     // hide header, start quiz button and instructional text
-    document.querySelector(".start").classList.toggle("hide");    
+    document.querySelector(".start").classList.toggle("hide");
     // call questions and multiple choice answers
     getQuestions();
 }
 
 var timeLeft = 75
-//  timer starts function
+//  timer starts function                   **** Next tastk !!! Need to change time: 0 to be countdown time when start button pressed ****
 function timerStart(){    // countdown
     countDown = setInterval(function(){
+        timerDisplay.textContent = timeLeft
         timeLeft --;
         // create element to show timer on screen
         if (timeLeft >= 0){
@@ -75,6 +78,8 @@ document.body.appendChild(timerDisplay);  // need to put this section inside ano
 
 //Gamestop function
 function gameStop(){
+    // hide timer
+    timerDisplay.style.display = "none";
     // trigger from
         //  last question or when timer reaches 0 - call gamestop in those functions
     // announces score (#end-screen) - (#final-score)
