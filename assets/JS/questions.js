@@ -22,4 +22,10 @@ var questions = [
         answer: "quotation marks"
     }
 ]
-//question[currentQuestionsIndex].questionText
+
+for (var i = 0; i < questions.length; i++) {
+    // Store each question and answer in local storage
+    localStorage.setItem("question" + (i + 1), questions[i].questionText);
+    localStorage.setItem("choices" + (i + 1), questions[i].choices);
+    localStorage.setItem("answer" + (i + 1), questions[i].answer);
+    }

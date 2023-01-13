@@ -15,10 +15,14 @@ a High scores HTML sheet and a index HTML sheet
 var startButton = document.querySelector("#start");
 // A start button function to activate when clicked
 startButton.addEventListener("click", function(event) {
-    gameStart();
+    var element = event.target;
+    if (element.matches("button") === true) {
+        gameStart();
+    }
 })
 
 //gamestart function
+var isWin = false
 function gameStart(){
     // trigger from button - call function when start button clicked
     // create a variable to be able to select if the game is won or not
@@ -26,10 +30,10 @@ function gameStart(){
     isWin = false
     // start timer
     timerStart();
+    // hide header, start quiz button and instructional text
+    document.querySelector(".start").classList.toggle("hide");    
     // call questions and multiple choice answers
     getQuestions();
-    // hide header, start quiz button and instructional text
-
 }
 
 var timeLeft = 75
@@ -43,13 +47,13 @@ function timerStart(){    // countdown
             if (isWin && timeLeft > 0){
                 // stop timer
                 clearInterval(countDown);
-                winGame();                           //create win game function
+                gameStop();                           
             }
         }
         // if time runs out
         if (timeLeft === 0){
             clearInterval(countDown);
-            loseGame();                             // create lose game function
+            gameStop();                             
         }
     }, 1000);
 }
@@ -59,6 +63,9 @@ function timerStart(){    // countdown
     // Game stop f
     // timer display
     // Incorrect answer - time deduction
+var timerDisplay = document.createElement("div");
+timerDisplay.className = "timer";
+document.body.appendChild(timerDisplay);  // need to put this section inside another function  ------    ??
     
 
 // toggle class attribute hide
@@ -90,7 +97,14 @@ function showHighscores(){
 // Q&A function 
 function getQuestions(){
     // get questions from localStorage - from questions JS
+    for (var i = 1; i <= questions.length; i++) {
+        var currentQuestion = localStorage.getItem("question" + i);
+        var currentChoices = localStorage.getItem("choices" + i);
+        var currentAnswer = localStorage.getItem("answer" + i);
+        // Use the retrieved information to display the questions and answers as multiple choice options
+    }
     // display the questions as buttons
+
     // on click
         // show correct answer or just correct/wrong underneath(for a second?)(.feedback)
         // clear
