@@ -21,20 +21,37 @@ startButton.addEventListener("click", function(event) {
 //gamestart function
 function gameStart(){
     // trigger from button - call function when start button clicked
+    // create a variable to be able to select if the game is won or not
+    // this will be needed later on if the user picks all correct answers in time
+    isWin = false
     // start timer
     timerStart();
     // call questions and multiple choice answers
     getQuestions();
     // hide header, start quiz button and instructional text
 
-}  
+}
 
+var timeLeft = 75
 //  timer starts function
-function timerStart(){
-    // countdown
-    // display
-    // get game stop
-    // stop at zero
+function timerStart(){    // countdown
+    countDown = setInterval(function(){
+        timeLeft --;
+        // create element to show timer on screen
+        if (timeLeft >= 0){
+            //tests if win condition is met
+            if (isWin && timeLeft > 0){
+                // stop timer
+                clearInterval(countDown);
+                winGame();                           //create win game function
+            }
+        }
+        // if time runs out
+        if (timeLeft === 0){
+            clearInterval(countDown);
+            loseGame();                             // create lose game function
+        }
+    }, 1000);
 }
     
 //Timer (.timer) connected to:
