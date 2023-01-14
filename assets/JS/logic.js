@@ -13,7 +13,22 @@ a scores page - This is linked to the higscores HTML - will pull scores from the
 a High scores HTML sheet and a index HTML sheet
 */
 
+//Query selectors - enable easier selecting later on
+var timer = document.querySelector(".timer");
+var time = document.querySelector("#time");
+var startScreen = document.querySelector("#start-screen");
 var startButton = document.querySelector("#start");
+var questions = document.querySelector("#questions");
+var questionTitle = document.querySelector("#question-title");
+var choices = document.querySelector("#choices");
+var endScreen = document.querySelector("#end-screen");
+var finalScore = document.querySelector("#final-score");
+var initials = document.querySelector("#initials");
+var submitButton = document.querySelector("#submit");
+var feedback = document.querySelector("#feedback");
+
+
+
 // A start button function to activate when clicked
 startButton.addEventListener("click", function(event) {
     var element = event.target;
@@ -22,22 +37,19 @@ startButton.addEventListener("click", function(event) {
     }
 })
 
-
-
-//gamestart function
-var isWin = false
+// gamestart function
+// var isWin = false - might not need
 function gameStart(){ //                        ** WORKING ON **
     // trigger from button - call function when start button clicked
-    // create a variable to be able to select if the game is won or not
-    // this will be needed later on if the user picks all correct answers in time
-    isWin = false
+    // might not need --- create a variable to be able to select if the game is won or not
+    // this might be needed later on if the user picks all correct answers in time
+    // isWin = false --- might not need
     // start timer
     timerStart(); // function done did
-    // show timer
-    //timerDisplay.style.display = "block";
-    // hide header, start quiz button and instructional text
-    document.querySelector(".start").classList.toggle("hide");
+    // hide start page by changing class
+    startScreen.setAttribute("class", "hide");    
     // call questions and multiple choice answers
+    questions.removeAttribute("class")
     getQuestions(); //                             ** to do !! **
 }
 
@@ -54,7 +66,7 @@ function timerStart(){    //                   ** done **
     // countdown
     countDown = setInterval(function(){
         // replaces time on screen from 0 to timeLeft
-        document.getElementById("time").textContent = timeLeft
+        time.textContent = timeLeft
         // reduces the time to enable countdown feature
         timeLeft --;
         // set instructions for different end of game scenarios
@@ -74,13 +86,27 @@ function timerStart(){    //                   ** done **
         // set interval to be 1 second
     }, 1000);
 }
-    
 
-// toggle class attribute 'hide'
-    //  start-screen - now hides when start button is clicked
-    //               - need to reappear when back on main screen after game end
-    // questions container 
+// Q&A function 
+function getQuestions(){ //                     ** WORKING ON **
+    // get questions from localStorage - from questions JS
+    // Questions
+    index = 0
+    if (index < storedQuestions.length || timeLeft > 0) {
+        questionTitle.textContent = storedQuestions[i].questionText;
+        // for (i = 0, i < storedQuestions.length||timeLeft > 0; i++;) {
+        //     questionText.textContent = storedQuestions[i].question
+        // }
 
+        // Use the retrieved information to display the questions and answers as multiple choice options
+    }
+    // display the questions as buttons
+
+    // on click
+        // show correct answer or just correct/wrong underneath(for a second?)(.feedback)
+        // clear
+        // get new questions
+}
 
 //Gamestop function
 function gameStop(){ //                         ** to do **
@@ -104,21 +130,6 @@ function showHighscores(){ //                      ** to do **
 // clear highscore function
 function clearHighscores(){ //                  ** to do **
     // clears LS
+    localStorage.clear()
 }
     
-// Q&A function 
-function getQuestions(){ //                     ** WORKING ON **
-    // get questions from localStorage - from questions JS
-    for (var i = 1; i <= questions.length; i++) {
-        var currentQuestion = localStorage.getItem("question" + i);
-        var currentChoices = localStorage.getItem("choices" + i);
-        var currentAnswer = localStorage.getItem("answer" + i);
-        // Use the retrieved information to display the questions and answers as multiple choice options
-    }
-    // display the questions as buttons
-
-    // on click
-        // show correct answer or just correct/wrong underneath(for a second?)(.feedback)
-        // clear
-        // get new questions
-}
