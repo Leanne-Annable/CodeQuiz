@@ -42,7 +42,7 @@ var timeLeft = 75
 //  timer starts function                   **** Next tastk !!! Need to change time: 0 to be countdown time when start button pressed ****
 function timerStart(){    // countdown
     countDown = setInterval(function(){
-        timerDisplay.textContent = timeLeft
+        document.getElementById("time").textContent = timeLeft
         timeLeft --;
         // create element to show timer on screen
         if (timeLeft >= 0){
@@ -66,10 +66,7 @@ function timerStart(){    // countdown
     // Game stop f
     // timer display
     // Incorrect answer - time deduction
-var timerDisplay = document.createElement("div");
-timerDisplay.className = "timer";
-document.body.appendChild(timerDisplay);  // need to put this section inside another function  ------    ??
-    
+
 
 // toggle class attribute hide
     //  start-screen
