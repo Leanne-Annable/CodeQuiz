@@ -27,7 +27,13 @@ var initials = document.querySelector("#initials");
 var submitButton = document.querySelector("#submit");
 var feedback = document.querySelector("#feedback");
 
+// other variables called multiple times
+var index = 0
+var timeLeft = 75
 
+// created elements
+var listedChoices = document.createElement("ol");
+choices.append(listedChoices);
 
 // A start button function to activate when clicked
 startButton.addEventListener("click", function(event) {
@@ -38,18 +44,15 @@ startButton.addEventListener("click", function(event) {
 })
 
 // gamestart function
-// var isWin = false - might not need
+var isWin = false // - might not need
 function gameStart(){ //                        ** WORKING ON **
     // trigger from button - call function when start button clicked
-    // might not need --- create a variable to be able to select if the game is won or not
-    // this might be needed later on if the user picks all correct answers in time
-    // isWin = false --- might not need
     // start timer
     timerStart(); // function done did
     // hide start page by changing class
     startScreen.setAttribute("class", "hide");    
     // call questions and multiple choice answers
-    questions.removeAttribute("class")
+    questions.removeAttribute("class");
     getQuestions(); //                             ** to do !! **
 }
 
@@ -59,8 +62,7 @@ function gameStart(){ //                        ** WORKING ON **
     // timer display - done
     // Incorrect answer - time deduction
 
-// set the starting time
-var timeLeft = 75
+
 // timer starts function                  
 function timerStart(){    //                   ** done **
     // countdown
@@ -76,27 +78,32 @@ function timerStart(){    //                   ** done **
                 // stop timer
                 clearInterval(countDown);
                 gameStop();                           
-            }
+            } else if (timeLeft === 0){
+              // if time runs out
+                clearInterval(countDown);
+                gameStop();                             
         }
-        // if time runs out
-        if (timeLeft === 0){
-            clearInterval(countDown);
-            gameStop();                             
-        }
-        // set interval to be 1 second
+    }    // set interval to be 1 second
     }, 1000);
 }
 
 // Q&A function 
 function getQuestions(){ //                     ** WORKING ON **
-    // get questions from localStorage - from questions JS
+    // get questions from questions JS
     // Questions
-    index = 0
     if (index < storedQuestions.length || timeLeft > 0) {
-        questionTitle.textContent = storedQuestions[i].questionText;
-        // for (i = 0, i < storedQuestions.length||timeLeft > 0; i++;) {
-        //     questionText.textContent = storedQuestions[i].question
-        // }
+        // pull up the question title to screen
+        questionTitle.textContent = storedQuestions[index].questionText;
+        // bring up the choices, looping through to make each one a button
+        for (i = 0, i < storedQuestions[index].choices.length; i++;) {
+            // create a button element for choices
+            var choicesButton = document.createElement("button");
+            // give the button an id of button to link to the css
+            choicesButton.setAttribute("id", "button" + i);
+            // set the text to each of the choices available
+            choicesButton.textContent = storedQuestions[index].choices[i]
+            listedChoices.appendChild(choicesButton);
+        }
 
         // Use the retrieved information to display the questions and answers as multiple choice options
     }
