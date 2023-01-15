@@ -27,10 +27,14 @@ var initials = document.querySelector("#initials");
 var submitButton = document.querySelector("#submit");
 var feedback = document.querySelector("#feedback");
 
+
 // other variables called multiple times
 var index = 0;
 var timeLeft = 75;
 var score = 0;
+// get what is stored in local storage or get an empty array
+var highScore = JSON.parse(localStorage.getItem("highScore")) || [];
+var scoresList = [];
 
 // created elements
 var listedChoices = document.createElement("ol");
@@ -45,8 +49,15 @@ choices.appendChild(answer);
 // event listeners
 startButton.addEventListener("click", gameStart);
 choices.addEventListener("click", checkAnswer);
+submitButton.addEventListener("click", function(event){
+    saveHighScore(event);
+})
+// turn off the submit button if nothing entered into initials
+initials.addEventListener("input", function () {
+    submitButton.disabled = (initials.value === "")
+});
 
-// gamestart function
+// start the game
 function gameStart() { //                        ** done **
     // trigger from button - call function when start button clicked
     // start timer
@@ -58,7 +69,7 @@ function gameStart() { //                        ** done **
     getQuestion();
 };
 
-// timer starts function                  
+// start the timer                  
 function timerStart() {    //                   ** done **
     // replaces time on screen from 0 to timeLeft
     time.textContent = timeLeft
@@ -83,7 +94,7 @@ function timerStart() {    //                   ** done **
     }, 1000);
 };
 
-// Q&A function 
+// get the questions 
 function getQuestion() {     //                  ** done **
     // Questions
     if (index < storedQuestions.length && timeLeft > 0) {
@@ -111,10 +122,7 @@ function getQuestion() {     //                  ** done **
         gameStop();
     }
 };
-// on click - check answers 
-// show  correct/wrong underneath(for a second?)(.feedback)
-// clear question
-// get new question
+// check if answer picked is correct 
 function checkAnswer(event) {
     event.preventDefault();
     var answer = document.querySelector("#answer");
@@ -144,7 +152,7 @@ function checkAnswer(event) {
     }
 };
  
-// clear the choices available 
+// clear the question and choices, replace with new ones 
 function clearQuestion() {
     // go through each of the choices and clear them
     for (i = 0; i < storedQuestions[index].choices.length; i++) {
@@ -155,8 +163,8 @@ function clearQuestion() {
     }
 }
 
-//Gamestop function
-function gameStop() { //                         ** to do **
+// stop the game if questions answered or timeout
+function gameStop() { //                         ** done **
     // hide the questions and show the end-screen html
     questions.setAttribute("class", "hide");
     endScreen.setAttribute("class", "");
@@ -167,15 +175,10 @@ function gameStop() { //                         ** to do **
     //display the final score
     finalScore.textContent = score;
 };
-
-// highscore function
-function showHighscores() { //                      ** to do **
-    // on load, update from local storage
-    // rank by score
+console.log(highScore)  //                          ** WORKING ON **
+// function to save the high score
+function saveHighScore(event){
+    console.log("pushed the save button")
+    event.preventDefault();
 }
-
-// clear highscore function
-function clearHighscores() { //                  ** to do **
-    // clears LS
-    localStorage.clear()
-}
+c

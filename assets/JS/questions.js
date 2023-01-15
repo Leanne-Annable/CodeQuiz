@@ -9,7 +9,7 @@ var storedQuestions = [
     {
         questionText: "Q2. The condition in an if/else statement is enclosed within: ",
         choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
-        answer: "curly brackets"   
+        answer: "parentheses"   
     },
     {
         questionText: "Q3. Arrays in Javascript can be used to store: ",
