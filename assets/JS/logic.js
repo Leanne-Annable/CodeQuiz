@@ -30,6 +30,7 @@ var feedback = document.querySelector("#feedback");
 // other variables called multiple times
 var index = 0;
 var timeLeft = 75;
+var score = 0;
 
 // created elements
 var listedChoices = document.createElement("ol");
@@ -47,55 +48,47 @@ startButton.addEventListener("click", function(event) {
     if (element.matches("button") === true) {
         gameStart();
     }
-})
+});
 
 // gamestart function
-// var isWin = false // - might not need
-function gameStart(){ //                        ** WORKING ON **
+function gameStart(){ //                        ** done **
     // trigger from button - call function when start button clicked
     // start timer
-    timerStart(); // function done did
+    timerStart();
     // hide start page by changing class
     startScreen.setAttribute("class", "hide");    
     // call questions and multiple choice answers
     questions.removeAttribute("class");
-    getQuestion(); //                             ** to do !! **
-}
-
-//Timer connected to:
-    // Game start f - done
-    // Game stop f - add questions and link when completed
-    // timer display - done
-    // Incorrect answer - time deduction
-
+    getQuestion();
+};
 
 // timer starts function                  
 function timerStart(){    //                   ** done **
+    // replaces time on screen from 0 to timeLeft
+    time.textContent = timeLeft
     // countdown
-    countDown = setInterval(function(){
-        // replaces time on screen from 0 to timeLeft
-        time.textContent = timeLeft
+    countDown = setInterval(function(){     
         // reduces the time to enable countdown feature
         timeLeft --;
+        // show the new time after each countdown
+        time.textContent = timeLeft
         // set instructions for different end of game scenarios
         if (timeLeft >= 0){
             //tests if win condition is met
-            if (isWin && timeLeft > 0){
+            if (index>= questions.length && timeLeft > 0){
                 // stop timer
                 clearInterval(countDown);
                 gameStop();                           
             } else if (timeLeft === 0){
               // if time runs out
-                clearInterval(countDown);
                 gameStop();                             
         }
     }    // set interval to be 1 second
     }, 1000);
-}
+};
 
 // Q&A function 
-function getQuestion(){ //                     ** WORKING ON **
-// get questions from questions JS
+function getQuestion(){     //                  ** done **
 // Questions
 if (index < storedQuestions.length && timeLeft > 0) {
     // check to see if the answer was correct
@@ -121,7 +114,7 @@ if (index < storedQuestions.length && timeLeft > 0) {
 else {
     gameStop();
 }
-}
+};
     // on click - check answers 
         // show correct answer or just correct/wrong underneath(for a second?)(.feedback)
         // clear
@@ -130,16 +123,16 @@ else {
 
 //Gamestop function
 function gameStop(){ //                         ** to do **
-    // hide timer
-    timerDisplay.style.display = "none";
-    // trigger from
-        //  last question or when timer reaches 0 - call gamestop in those functions
-    // announces score (#end-screen) - (#final-score)
-    // gets initials (#initials)
-    // push to local storage 
-    // show submit button - ?needs to show higscores page after?
-    // show instructions
-}
+    // hide the questions and show the end-screen html
+    questions.setAttribute("class", "hide");
+    endScreen.setAttribute("class", "");
+    // stop the timer
+    clearInterval(countDown);
+    // add time left to the score variable
+    score = score + timeLeft;
+    //display the final score
+    finalScore.textContent = score;
+};
     
 // highscore function
 function showHighscores(){ //                      ** to do **
