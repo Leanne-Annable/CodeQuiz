@@ -28,12 +28,18 @@ var submitButton = document.querySelector("#submit");
 var feedback = document.querySelector("#feedback");
 
 // other variables called multiple times
-var index = 0
-var timeLeft = 75
+var index = 0;
+var timeLeft = 75;
 
 // created elements
 var listedChoices = document.createElement("ol");
-choices.append(listedChoices);
+choices.appendChild(listedChoices);
+var lineBreak = document.createElement("hr");
+choices.appendChild(lineBreak);
+var answer = document.createElement("p")
+answer.setAttribute("id", "answer");
+answer.setAttribute("class", "hide");
+choices.appendChild(answer);
 
 // A start button function to activate when clicked
 startButton.addEventListener("click", function(event) {
@@ -44,7 +50,7 @@ startButton.addEventListener("click", function(event) {
 })
 
 // gamestart function
-var isWin = false // - might not need
+// var isWin = false // - might not need
 function gameStart(){ //                        ** WORKING ON **
     // trigger from button - call function when start button clicked
     // start timer
@@ -53,7 +59,7 @@ function gameStart(){ //                        ** WORKING ON **
     startScreen.setAttribute("class", "hide");    
     // call questions and multiple choice answers
     questions.removeAttribute("class");
-    getQuestions(); //                             ** to do !! **
+    getQuestion(); //                             ** to do !! **
 }
 
 //Timer connected to:
@@ -88,32 +94,39 @@ function timerStart(){    //                   ** done **
 }
 
 // Q&A function 
-function getQuestions(){ //                     ** WORKING ON **
-    // get questions from questions JS
-    // Questions
-    if (index < storedQuestions.length || timeLeft > 0) {
-        // pull up the question title to screen
-        questionTitle.textContent = storedQuestions[index].questionText;
-        // bring up the choices, looping through to make each one a button
-        for (i = 0, i < storedQuestions[index].choices.length; i++;) {
-            // create a button element for choices
-            var choicesButton = document.createElement("button");
-            // give the button an id of button to link to the css
-            choicesButton.setAttribute("id", "button" + i);
-            // set the text to each of the choices available
-            choicesButton.textContent = storedQuestions[index].choices[i]
-            listedChoices.appendChild(choicesButton);
-        }
-
-        // Use the retrieved information to display the questions and answers as multiple choice options
+function getQuestion(){ //                     ** WORKING ON **
+// get questions from questions JS
+// Questions
+if (index < storedQuestions.length && timeLeft > 0) {
+    // check to see if the answer was correct
+    if (answer.getAttribute("class") === "") {
+        setTimeout(function () {
+          answer.setAttribute("class", "hide");
+        }, 1000);
+      };
+    //pull up the question title to screen
+    questionTitle.textContent = storedQuestions[index].questionText;
+    // bring up the choices, looping through to make each one a button
+    for (i = 0; i < storedQuestions[index].choices.length; i++) {
+        // create a button element for choices
+        var choicesButton = document.createElement("button");
+        // give the button an id of button to link to the css
+        choicesButton.setAttribute("id", "button" +i);
+        // set the text to each of the choices available
+        choicesButton.textContent = storedQuestions[index].choices[i];
+        // append each of the choices buttons to the list
+        listedChoices.appendChild(choicesButton);
     }
-    // display the questions as buttons
-
-    // on click
+}
+else {
+    gameStop();
+}
+}
+    // on click - check answers 
         // show correct answer or just correct/wrong underneath(for a second?)(.feedback)
         // clear
         // get new questions
-}
+
 
 //Gamestop function
 function gameStop(){ //                         ** to do **
