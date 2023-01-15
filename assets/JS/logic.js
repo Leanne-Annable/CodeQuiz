@@ -42,13 +42,9 @@ answer.setAttribute("id", "answer");
 answer.setAttribute("class", "hide");
 choices.appendChild(answer);
 
-// A start button function to activate when clicked
-startButton.addEventListener("click", function (event) {
-    var element = event.target;
-    if (element.matches("button") === true) {
-        gameStart();
-    }
-});
+// event listeners
+startButton.addEventListener("click", gameStart);
+choices.addEventListener("click", checkAnswer);
 
 // gamestart function
 function gameStart() { //                        ** done **
@@ -116,10 +112,10 @@ function getQuestion() {     //                  ** done **
     }
 };
 // on click - check answers 
-// show correct answer or just correct/wrong underneath(for a second?)(.feedback)
-// clear
-// get new questions
-choices.addEventListener("click", function (event) {
+// show  correct/wrong underneath(for a second?)(.feedback)
+// clear question
+// get new question
+function checkAnswer(event) {
     event.preventDefault();
     var answer = document.querySelector("#answer");
     // changing the class from hidden
@@ -139,15 +135,15 @@ choices.addEventListener("click", function (event) {
     // move the index number on by one to get the next set of questions
     index += 1;
     // check that there are more questions left
-    if (index < questionSource.length) {
+    if (index < storedQuestions.length) {
         // clear the current question and show next question
         clearQuestion();
         getQuestion();
     } else {
         gameStop();
     }
-});
-
+};
+ 
 // clear the choices available 
 function clearQuestion() {
     // go through each of the choices and clear them
