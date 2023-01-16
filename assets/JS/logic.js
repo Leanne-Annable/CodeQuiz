@@ -198,6 +198,10 @@ function saveHighScore(event){
 
     // cut off any score that doesn't reach the highScores board
     highScores.splice(5);
+    // push the high scores to the local storage
+    localStorage.setItem("highsScores", JSON.stringify(highScores));
     
     console.log(highScores);
+
+    window.location.href = "highscores.html";
 };
