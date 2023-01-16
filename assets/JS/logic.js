@@ -28,13 +28,15 @@ var submitButton = document.querySelector("#submit");
 var feedback = document.querySelector("#feedback");
 
 
-// other variables called multiple times
+
+// other variables
 var index = 0;
 var timeLeft = 75;
 var latestScore = 0;
 // get what is stored in local storage or get an empty array when there are no saved high scores
 var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
 // var latestScore = localStorage.getItem("latestScore") -?? might not need
+var maxHighScores = 5;
 
 // created elements
 var listedChoices = document.createElement("ol");
@@ -178,12 +180,24 @@ function gameStop() { //                         ** done **
 console.log(highScores)  //                          ** WORKING ON **
 // function to save the high score
 function saveHighScore(event){
-    console.log("pushed the save button") // - check to make sure it's working
+    // console.log("pushed the save button") // - check to make sure it's working
     event.preventDefault();
+    // create an array for the scores to be saved in
     var score = {
+        //score: Math.floor(Math.random() *100), // - test to see if nnumbers are sorting
         score: latestScore,
         initials: initials.value,
     };
+    // push the latest entry to the highScores array
     highScores.push(score);
+    
+    // sort through the highscores to put them in order
+    highScores.sort(function(a, b){
+        return b.score - a.score;
+    })
+
+    // cut off any score that doesn't reach the highScores board
+    highScores.splice(5);
+    
     console.log(highScores);
 };
