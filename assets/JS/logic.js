@@ -31,10 +31,10 @@ var feedback = document.querySelector("#feedback");
 // other variables called multiple times
 var index = 0;
 var timeLeft = 75;
-var score = 0;
-// get what is stored in local storage or get an empty array
-var highScore = JSON.parse(localStorage.getItem("highScore")) || [];
-var scoresList = [];
+var latestScore = 0;
+// get what is stored in local storage or get an empty array when there are no saved high scores
+var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+// var latestScore = localStorage.getItem("latestScore") -?? might not need
 
 // created elements
 var listedChoices = document.createElement("ol");
@@ -98,7 +98,7 @@ function timerStart() {    //                   ** done **
 function getQuestion() {     //                  ** done **
     // Questions
     if (index < storedQuestions.length && timeLeft > 0) {
-        // check to see if the answer was correct
+        // have the result of the previous answer appear briefly (1sec) Hide this function if there is none
         if (answer.getAttribute("class") === "") {
             setTimeout(function () {
                 answer.setAttribute("class", "hide");
@@ -171,14 +171,19 @@ function gameStop() { //                         ** done **
     // stop the timer
     clearInterval(countDown);
     // add time left to the score variable
-    score = score + timeLeft;
+    latestScore = latestScore + timeLeft;
     //display the final score
-    finalScore.textContent = score;
+    finalScore.textContent = latestScore;
 };
-console.log(highScore)  //                          ** WORKING ON **
+console.log(highScores)  //                          ** WORKING ON **
 // function to save the high score
 function saveHighScore(event){
-    console.log("pushed the save button")
+    console.log("pushed the save button") // - check to make sure it's working
     event.preventDefault();
-}
-c
+    var score = {
+        score: latestScore,
+        initials: initials.value,
+    };
+    highScores.push(score);
+    console.log(highScores);
+};
