@@ -8,7 +8,7 @@ var endScore = localStorage.getItem("highScores")
 showHighscores();
 
 // show the highscores
-function showHighscores() { //                      ** to do **
+function showHighscores() { //                      ** done **
     var showScores = JSON.parse(endScore);
     for (i = 0; i < showScores.length; i++){
         // for each entry create a list element
@@ -23,7 +23,7 @@ function showHighscores() { //                      ** to do **
 clearBtn.addEventListener("click", clearHighscores);
 
 // clear highscore
-function clearHighscores() { //                  ** done **
+function clearHighscores() { //                     ** done **
     // clears LS
     localStorage.clear();
     highScoresList.innerHTML = "";

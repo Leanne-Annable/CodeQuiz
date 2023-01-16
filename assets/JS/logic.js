@@ -59,7 +59,7 @@ initials.addEventListener("input", function () {
 });
 
 // start the game
-function gameStart() { //                        ** done **
+function gameStart() { //                               ** done **
     // trigger from button - call function when start button clicked
     // start timer
     timerStart();
@@ -71,7 +71,7 @@ function gameStart() { //                        ** done **
 };
 
 // start the timer                  
-function timerStart() {    //                   ** done **
+function timerStart() {    //                           ** done **
     // replaces time on screen from 0 to timeLeft
     time.textContent = timeLeft
     // countdown
@@ -96,7 +96,7 @@ function timerStart() {    //                   ** done **
 };
 
 // get the questions 
-function getQuestion() {     //                  ** done **
+function getQuestion() {     //                         ** done **
     // Questions
     if (index < storedQuestions.length && timeLeft > 0) {
         // have the result of the previous answer appear briefly (1sec) Hide this function if there is none
@@ -124,7 +124,7 @@ function getQuestion() {     //                  ** done **
     }
 };
 // check if answer picked is correct 
-function checkAnswer(event) {       //              ** done **
+function checkAnswer(event) {       //                  ** done **
     event.preventDefault();
     var answer = document.querySelector("#answer");
     // changing the class from hidden
@@ -154,7 +154,7 @@ function checkAnswer(event) {       //              ** done **
 };
  
 // clear the question and choices, replace with new ones 
-function clearQuestion() {
+function clearQuestion() {      //                      ** done **
     // go through each of the choices and clear them
     for (i = 0; i < storedQuestions[index].choices.length; i++) {
         // select each of the pre-made choicesButton by their ID elements
@@ -165,7 +165,7 @@ function clearQuestion() {
 }
 
 // stop the game if questions answered or timeout
-function gameStop() { //                         ** done **
+function gameStop() { //                                ** done **
     // hide the questions and show the end-screen html
     questions.setAttribute("class", "hide");
     endScreen.setAttribute("class", "");
@@ -177,9 +177,9 @@ function gameStop() { //                         ** done **
     finalScore.textContent = score;    
 };
 
-console.log(highScoreArray)  //                          ** WORKING ON **
+//console.log(highScoreArray)
 // function to save the high score
-function saveHighScore(event){
+function saveHighScore(event){ //                       ** done **
     // console.log("pushed the save button") // - check to make sure it's working
     event.preventDefault();
     // create an array for the scores to be saved in
@@ -201,7 +201,7 @@ function saveHighScore(event){
     
     // sort through the highscores to put them in order
     highScoreArray.sort(function(a, b){
-        return b.userScore - a.userScore;
+        return b.score - a.score;
     })
     // cut off any score that doesn't reach the highScores board
     highScoreArray.splice(5);
@@ -209,7 +209,7 @@ function saveHighScore(event){
     var highScoreString = JSON.stringify(highScoreArray)
     window.localStorage.setItem("highScores", highScoreString);
     
-    console.log(highScoreArray);
+    //console.log(highScoreArray);
 
     window.location.href = "highscores.html";
 };
