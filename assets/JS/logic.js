@@ -31,12 +31,13 @@ var feedback = document.querySelector("#feedback");
 
 // other variables
 var index = 0;
-var timeLeft = 75;
-var latestScore = 0;
+var timeLeft = 60;
+var score = 0;
+var storedScores = localStorage.getItem("highScores")
 // get what is stored in local storage or get an empty array when there are no saved high scores
-var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
-// var latestScore = localStorage.getItem("latestScore") -?? might not need
-var maxHighScores = 5;
+//var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+var highScoreArray = [];
+
 
 // created elements
 var listedChoices = document.createElement("ol");
@@ -51,9 +52,7 @@ choices.appendChild(answer);
 // event listeners
 startButton.addEventListener("click", gameStart);
 choices.addEventListener("click", checkAnswer);
-submitButton.addEventListener("click", function(event){
-    saveHighScore(event);
-})
+submitButton.addEventListener("click", saveHighScore);
 // turn off the submit button if nothing entered into initials
 initials.addEventListener("input", function () {
     submitButton.disabled = (initials.value === "")
@@ -125,7 +124,7 @@ function getQuestion() {     //                  ** done **
     }
 };
 // check if answer picked is correct 
-function checkAnswer(event) {
+function checkAnswer(event) {       //              ** done **
     event.preventDefault();
     var answer = document.querySelector("#answer");
     // changing the class from hidden
@@ -173,35 +172,44 @@ function gameStop() { //                         ** done **
     // stop the timer
     clearInterval(countDown);
     // add time left to the score variable
-    latestScore = latestScore + timeLeft;
+    score = score + timeLeft;
     //display the final score
-    finalScore.textContent = latestScore;
+    finalScore.textContent = score;
 };
-console.log(highScores)  //                          ** WORKING ON **
+
+console.log(highScoreArray)  //                          ** WORKING ON **
 // function to save the high score
 function saveHighScore(event){
     // console.log("pushed the save button") // - check to make sure it's working
     event.preventDefault();
     // create an array for the scores to be saved in
-    var score = {
+    var userScore = {
         //score: Math.floor(Math.random() *100), // - test to see if nnumbers are sorting
-        score: latestScore,
-        initials: initials.value,
+        initials: initials.value.trim(),
+        score: score,
     };
+
+    // if nothing is stored in storedScores, show empty array, else, show array content
+    if (storedScores === null){
+        highScoreArray = [];
+    } else {
+        highScoreArray = JSON.parse(storedScores);
+    }
+
     // push the latest entry to the highScores array
-    highScores.push(score);
+    highScoreArray.push(userScore);
     
     // sort through the highscores to put them in order
-    highScores.sort(function(a, b){
-        return b.score - a.score;
+    highScoreArray.sort(function(a, b){
+        return b.userScore - a.userScore;
     })
-
     // cut off any score that doesn't reach the highScores board
-    highScores.splice(5);
+    highScoreArray.splice(5);
     // push the high scores to the local storage
-    localStorage.setItem("highsScores", JSON.stringify(highScores));
+    var highScoreString = JSON.stringify(highScoreArray)
+    window.localStorage.setItem("highsScores", highScoreString);
     
-    console.log(highScores);
+    console.log(highScoreArray);
 
     window.location.href = "highscores.html";
 };
