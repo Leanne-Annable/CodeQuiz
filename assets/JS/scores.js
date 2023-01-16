@@ -9,12 +9,12 @@ showHighscores();
 
 // show the highscores
 function showHighscores() { //                      ** to do **
-    var highScores = JSON.parse(endScore);
-    for (i = 0; i < highScores.length; i++){
+    var showScores = JSON.parse(endScore);
+    for (i = 0; i < showScores.length; i++){
         // for each entry create a list element
         var li = document.createElement("li");
         // display the user info
-        li.textContent = highScores[i].initials + " - " + highScores[i].userScore;
+        li.textContent = showScores[i].initials + " : " + showScores[i].score;
         // append list element to ordered list
         highScoresList.appendChild(li);
     }

@@ -134,7 +134,7 @@ function checkAnswer(event) {       //              ** done **
     // Getting the correct answer from questions.js
     var correctAnswer = storedQuestions[index].answer;
     // if answer is correct, show correct! message 
-    if (correctAnswer === chosenAnswer) {
+    if (correctAnswer === chosenAnswer) {;
         answer.textContent = "Correct!";
     } else {
         //if incorrect removing 10 seconds from timeLeft
@@ -174,7 +174,7 @@ function gameStop() { //                         ** done **
     // add time left to the score variable
     score = score + timeLeft;
     //display the final score
-    finalScore.textContent = score;
+    finalScore.textContent = score;    
 };
 
 console.log(highScoreArray)  //                          ** WORKING ON **
@@ -207,7 +207,7 @@ function saveHighScore(event){
     highScoreArray.splice(5);
     // push the high scores to the local storage
     var highScoreString = JSON.stringify(highScoreArray)
-    window.localStorage.setItem("highsScores", highScoreString);
+    window.localStorage.setItem("highScores", highScoreString);
     
     console.log(highScoreArray);
 
