@@ -138,8 +138,13 @@ function checkAnswer(event) {       //                  ** done **
         answer.textContent = "Correct!";
     } else {
         //if incorrect removing 10 seconds from timeLeft
-        timeLeft -= 10;
+        if (timeLeft >= 10){
+            timeLeft -= 10;
         answer.textContent = "Wrong!";
+        } else if (timeLeft < 10 && timeLeft > 0){
+            timeLeft = 0;
+            gameStop();
+        }        
     }
     // move the index number on by one to get the next set of questions
     index += 1;
