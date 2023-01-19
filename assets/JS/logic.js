@@ -28,14 +28,13 @@ var submitButton = document.querySelector("#submit");
 var feedback = document.querySelector("#feedback");
 
 
-
 // other variables
 var index = 0;
 var timeLeft = 60;
 var score = 0;
 var storedScores = localStorage.getItem("highScores")
 // get what is stored in local storage or get an empty array when there are no saved high scores
-//var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+//var highScores = JSON.parse(localStorage.getItem("highScores")) || []; ** had to remove and seperate to an if statement as the code wouldn't run properly otherwise
 var highScoreArray = [];
 
 
